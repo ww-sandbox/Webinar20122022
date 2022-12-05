@@ -1,7 +1,6 @@
 package testy;
 
 import Pages.HomePage;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

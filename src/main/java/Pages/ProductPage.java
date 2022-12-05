@@ -1,16 +1,20 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ProductPage extends BasePage{
     public ProductPage(WebDriver driver){
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     By colorWhiteBy = By.xpath("//input[@title=\"Biały\"]");
@@ -21,6 +25,9 @@ public class ProductPage extends BasePage{
 
     @FindBy(css=".add button")
     WebElement addToBasketButtonElement;
+//    deklaracja elementów zgodnie ze stylem PageFactory
+    @FindBy(id = "group_1")
+    WebElement selectSizeElement;
 
 
     public void openProductPage(){
@@ -36,18 +43,34 @@ public class ProductPage extends BasePage{
     }
 
     public void selectSize(String size){
-        WebElement selectElement = driver.findElement(selectSizeBy);
-        Select selectSize = new Select(selectElement);
-        selectSize.selectByVisibleText("M");
+//        WebElement selectElement = driver.findElement(selectSizeBy);
+//        TODO : rozwiąć problem stale element
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+//        wait.until(ExpectedConditions.stalenessOf(selectSizeElement));
+
+        int attempts = 0;
+        while( attempts < 2) {
+            try {
+                Select selectSize = new Select(selectSizeElement);
+                selectSize.selectByVisibleText(size);
+                break;
+            } catch(StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+//        Tak jak wspominałem czasem przy okazji nowoczesnych bibliotek do tworzenia UI trzeba się nakombinować.
+//        W tym wypadku błąd nie jest taki prosty do załatnia i trzeba to robić trochę na około. Problem z selectem
+//        rozwiązuję inline w klasie danego PageObjectu, problem buttona przeniosłem do BasePage
     }
 
     public void setNumberOfPieces(String number){
         WebElement numberOfPiecesElement = driver.findElement(numberOfPiecesBy);
+        numberOfPiecesElement.clear();
         numberOfPiecesElement.sendKeys(number);
     }
 
     public void clickAddToBasketButton(){
-        addToBasketButtonElement.click();
+        stableButtonClick(addToBasketButtonElement);
     }
 
     public void checkAddToBasketSummary(){

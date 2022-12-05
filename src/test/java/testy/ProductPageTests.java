@@ -25,11 +25,12 @@ public class ProductPageTests extends BaseTest{
 
         takeScreenshot("allProp1");
 
+        productPage.selectSize("L");
         productPage.selectColor("black");
         productPage.setNumberOfPieces("3");
-        productPage.selectSize("L");
         productPage.clickAddToBasketButton();
         takeScreenshot("allProp2");
+//        jak widać testy pisane z wykorzystaniem POP są zdecydowanie bardziej czytelne i łatwe w pisaniu
     }
 
     @Test
