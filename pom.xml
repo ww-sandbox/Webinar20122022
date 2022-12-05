@@ -9,18 +9,14 @@
     <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <testng.version>7.5</testng.version>
-        <selenium.version>3.141.59</selenium.version>
-<!--        Możemy uporządkować zarządzanie wersjami tak by były uporządkowane w jenym miejscu z wykorzystaniem
-            znaczników podobnych do zmiennych. Poprawia to czytelność i ułatwia utrzymanie -->
-        <browserInTest>chrome</browserInTest>
-<!--        Podobnie możemy deklarować parametry pozwalające na kontrolowanie przebiegu testów -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <testng.version>7.6.1</testng.version>
+        <selenium.version>4.6.0</selenium.version>
+        <browserInTest>firefox</browserInTest>
     </properties>
 
     <dependencies>
-<!--        Dependencje odpowiadają za pobieranie niezbędnych bibliotek w określonych wersjach-->
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -71,14 +67,9 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M6</version>
                     <configuration>
-<!--                        <groups>SmokeTests</groups>-->
-<!--                        możliwość uruchamiania określonych grup testów (zdefiniowanych w @Test)-->
                         <suiteXmlFiles>testng.xml</suiteXmlFiles>
-<!--                        lub z wykorzystaniem plików konfiguracyjnych TestNG-->
                         <systemPropertyVariables>
                             <TestDriver>${browserInTest}</TestDriver>
-<!--                            Możliwość przekazywania parametrów do testów i odczytywanie ich z wykorzystaniem
-                                System.getProperty-->
                         </systemPropertyVariables>
 
                     </configuration>

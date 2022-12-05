@@ -2,143 +2,46 @@ package testy;
 
 import Pages.ProductPage;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.Color;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import utils.ScreenshotUtil;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class ProductPageTests extends BaseTest{
-//    @Test(groups = {"SmokeTests"})
-////    definicja grup w celu możliwości uruchamiania różnych zestawów testów (suite)
-//    public void checkProductName(){
-//        System.out.println("Sprawdzam nazwe produktu");
-//    }
-//
-//    @Test
-//    public void checkProductPrice(){
-//        System.out.println("Sprawdzam cene produktu");
-//    }
-//
-//    @Test(priority = 1)
-//    public void checkButtonColor(){
-//        driver.get("http://sampleshop.inqa.pl/men/1-1-hummingbird-printed-t-shirt.html#/1-rozmiar-s/8-kolor-bialy");
-//        WebElement addToCartButton = driver.findElement(By.xpath("//button[@data-button-action=\"add-to-cart\"]"));
-//        String buttonColor = addToCartButton.getCssValue("background-color");
-////        Pobieranie wartości koloru tła z CSS dla przycisku
-//        System.out.println(buttonColor);
-//        String buttonColorHex = Color.fromString(buttonColor).asHex();
-////        Ponieważ kolor zwracany przez selenium ma inny zapis niż ten w Developer Tools, musimy go przekonwertować.
-////        Biblioteka Selenium zawiera odpowiednią klasę do tego celu
-//        System.out.println(buttonColorHex);
-//
-//        Assert.assertEquals(buttonColorHex, "#2fb5d2");
-//    }
-//
-//    @Test(priority = 2)
-//    public void checkAssuranceFont(){
-//        WebElement assuranceTextElement = driver.findElement(By.cssSelector(".blockreassurance_product .block-title"));
-//        String fontFamilyValue = assuranceTextElement.getCssValue("font-family");
-////        Pobranie definicji czcionek dla danego elementu
-//
-//        Assert.assertTrue(fontFamilyValue.startsWith("Noto Sans"));
-//    }
-//
-//    @Test(priority = 3)
-//    public void checkAttributeNameForQuantity(){
-//        WebElement quantityInput = driver.findElement(By.id("quantity_wanted"));
-//        String quantityName = quantityInput.getAttribute("name");
-////        Możliwe jest również pobieranie atrybutów tagów HTML
-//        System.out.println(quantityName);
-//
-//        Assert.assertEquals(quantityName, "qty");
-//    }
-//
-//    @Test
-//    public void checkColorSelection(){
-//        driver.get("http://sampleshop.inqa.pl/men/1-1-hummingbird-printed-t-shirt.html#/1-rozmiar-s/8-kolor-bialy");
-//        List<WebElement> colorInputElements = driver.findElements(By.cssSelector(".input-color"));
-//
-//        System.out.println(colorInputElements.get(0).getAttribute("title"));
-//        Assert.assertTrue(colorInputElements.get(0).isSelected());
-//        Assert.assertFalse(colorInputElements.get(1).isSelected());
-////        Sprawdzamy czy radio buttony są prawidłowo zaznaczone. Ponieważ w danej grupie może być zaznaczony tylko jeden
-////        co jest dla nas oczekiwane (chcemy zamówić konkretny kolor)
-//        takeScreenshot("screenshot1");
-////        zapisujemy screenshot przed wyborem koloru (z domyślnym kolorem)
-//
-//        colorInputElements.get(1).click();
-//        Assert.assertTrue(colorInputElements.get(1).isSelected());
-//        Assert.assertFalse(colorInputElements.get(0).isSelected());
-////        System.out.println(colorInputElements.get(1).getAttribute("checked"));
-////        System.out.println(colorInputElements.get(0).getAttribute("checked"));
-////        Assert.assertEquals(colorInputElements.get(1).getAttribute("checked"), "checked");
-////        Assert.assertEquals(colorInputElements.get(0).getAttribute("checked"), "checked");
-////        W niektórych realizacjach, pola po zaznaczeniu otrzymują atrybut "checked". Więc można też sprawdzać
-////        z jego wykorzystaniem. Jednak powyższy zapis będzie działał niepoprawnie. Pomimo, że argument checked
-////        otrzymuje wartość tekstową 'checked' czyli 'checked=checked' to po pobraniu atrybutu dostajemy 'true'
-//
-//        takeScreenshot("screenshot2");
-////        zbieramy screenshot z wybranym nowym kolorem
-//    }
-//
+    public void takeScreenshot(String fileName){
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scrFile, new File("./target/screenshots/" + fileName + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void orderShirtAllProperties(){
         ProductPage productPage = new ProductPage(driver);
         productPage.openProductPage();
-//        Tworzymy instancję obiektu strony (page object) oraz otwieramy odpowiedni URL
 
-        ScreenshotUtil.takeScreenshot(driver,"allProp1");
-//        W przykładzie zbieramy screen shot żeby upewnić się, że produkt został dodany do koszyka. W rzeczywistości
-//        należałoby dodać odpowiednie metody do sprawdzania, czy w koszyku zwiększyła się ilość produktów
+        takeScreenshot("allProp1");
 
         productPage.selectColor("black");
-        productPage.selectSize("L");
         productPage.setNumberOfPieces("3");
-//        Metody ustawiające odpowiednie paramatry zamówienia
+        productPage.selectSize("L");
         productPage.clickAddToBasketButton();
-//        kliknięcie przycisku dodawania artykułu do koszyka
-
-        ScreenshotUtil.takeScreenshot(driver, "allProp2");
-        //        W przykładzie zbieramy screen shot żeby upewnić się, że produkt został dodany do koszyka. W rzeczywistości
-//        należałoby dodać odpowiednie metody do sprawdzania, czy w koszyku zwiększyła się ilość produktów
-        productPage.checkAddToBasketSummaryDisplayed();
+        takeScreenshot("allProp2");
     }
 
-    @Test(enabled = false)
+    @Test
     public void orderShirtOnlySize(){
         ProductPage productPage = new ProductPage(driver);
         productPage.openProductPage();
 
-        ScreenshotUtil.takeScreenshot(driver, "size1");
+        takeScreenshot("size1");
 
         productPage.selectSize("S");
         productPage.clickAddToBasketButton();
 
-        ScreenshotUtil.takeScreenshot(driver, "size2");
-    }
-//    Przykład bardzo podobny do poprzedniego, jedynie ustawiamy jeden parametr produktu zamiast wszystkich trzech
-//    Przykład pokazuje, że w przypadku POP dużo łatwiej, szybciej i czytelniej można budować różne testy
-
-    @Test(dependsOnMethods = "orderShirtAllProperties")
-    public void checkCartOverviewParameters(){
-        ProductPage productPage = new ProductPage(driver);
-
-        productPage.checkAddToBasketSummaryDisplayed();
-        String color = productPage.getColorFromBasketSummary();
-        String size = productPage.getSizeFromBasketSummary();
-        String qty = productPage.getQuantityFromBasketSummary();
-
-        Assert.assertEquals(color, "czarny");
-        Assert.assertEquals(size, "L");
-        Assert.assertEquals(qty, "2");
+        takeScreenshot("size2");
     }
 }
