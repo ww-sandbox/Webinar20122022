@@ -1,9 +1,10 @@
-package testy;
+package ShopTests;
 
 import Pages.ProductPage;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class ProductPageTests extends BaseTest{
 
     @Test
     public void orderShirtAllProperties(){
+        LOGGER.warn("Wewnątrz metody");
         ProductPage productPage = new ProductPage(driver);
         productPage.openProductPage();
 
@@ -32,6 +34,7 @@ public class ProductPageTests extends BaseTest{
         takeScreenshot("allProp2");
         productPage.checkAddToBasketSummary("L", "3", "czarny");
 //        jak widać testy pisane z wykorzystaniem POP są zdecydowanie bardziej czytelne i łatwe w pisaniu
+        Assert.assertEquals(1,2);
     }
 
     @Test

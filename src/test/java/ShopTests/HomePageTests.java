@@ -1,4 +1,4 @@
-package testy;
+package ShopTests;
 
 import Pages.HomePage;
 import org.testng.Assert;
