@@ -13,6 +13,7 @@ public class BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp(){
         System.out.println(System.getProperty("TestDriver"));
+        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();

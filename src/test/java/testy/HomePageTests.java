@@ -23,4 +23,13 @@ public class HomePageTests extends BaseTest {
         Assert.assertEquals("10", actualPrice);
     }
 
+    @Test
+    public void checkQuickViewWorks(){
+        HomePage homePage = new HomePage(driver);
+
+        homePage.openHomePage();
+        homePage.clickQuickViewForProduct(2);
+        Assert.assertTrue(homePage.isQuickViewBoxDisplayed());
+    }
+
 }

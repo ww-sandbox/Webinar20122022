@@ -1,16 +1,19 @@
 package Pages;
 
+import com.beust.ah.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import java.time.Duration;
 
 public class HomePage extends BasePage{
     public HomePage(WebDriver driver){super(driver);}
 //    Instancja WebDrivera jest przekazywana z testu, w tym miejscu przekazujemy ją dalej do konstruktora klasy bazowej
 
-    By firstProductBy = By.cssSelector("article");
-    By firstProductPriceBy = By.cssSelector("article .price");
+    By quickViewBoxBy = By.xpath("//div[contains(@id, 'quickview-modal')]");
 //    Zebranie lokalizatorów w jednym miejscu
 
     @FindBy(css = "article")
@@ -39,5 +42,20 @@ public class HomePage extends BasePage{
         String actualPrice = firstProductPrice.getText();
 
         return actualPrice;
+    }
+
+    public void clickQuickViewForProduct(int prodNum){
+        WebElement productElement = driver.findElement(By.cssSelector(".product:nth-of-type(" + prodNum +")"));
+        WebElement quickView = productElement.findElement(By.cssSelector(".quick-view"));
+        Actions action = new Actions(driver);
+        action.moveToElement(productElement).pause(Duration.ofMillis(500))
+                .click(quickView).perform();
+    }
+
+    public boolean isQuickViewBoxDisplayed(){
+        waitForPresenceOfElement(quickViewBoxBy);
+        waitForElementVisibility(driver.findElement(quickViewBoxBy));
+
+        return driver.findElement(quickViewBoxBy).isDisplayed();
     }
 }
