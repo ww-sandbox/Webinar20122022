@@ -15,7 +15,7 @@ public class ScreenshotUtil {
 
     public static void takeScreenshot(WebDriver driver, String fileName){
 //        Statyczna metoda umożliwiająca zapis screenshota bez konieczności tworzenia instacji klasy
-        LOGGER.info("Screenshot zapisany pod nazwą " + fileName);
+        LOGGER.info("Screenshot zapisany pod nazwą " + fileName + ".png");
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(scrFile, new File("./target/screenshots/" + fileName + ".png"));
@@ -23,6 +23,5 @@ public class ScreenshotUtil {
             e.printStackTrace();
         }
     }
-
-//    Kod przeniesiony do zewnętrznej klasy, aby był dostępny w łatwy sposób ze wszsystkich klas
+    
 }

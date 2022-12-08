@@ -33,6 +33,7 @@ public class ProductPage extends BasePage{
     }
 
     public void selectColor(String color){
+        LOGGER.debug("Wybieram kolor " + color);
         if(color.equals("white")){
             colorWhite.click();
         } else if (color.equals("black")) {
@@ -41,11 +42,7 @@ public class ProductPage extends BasePage{
     }
 
     public void selectSize(String size){
-//        WebElement selectElement = driver.findElement(selectSizeBy);
-//        TODO : rozwiąć problem stale element
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-//        wait.until(ExpectedConditions.stalenessOf(selectSizeElement));
-
+        LOGGER.debug("wybieram rozmiar " + size);
         int attempts = 0;
         while( attempts < 2) {
             try {
@@ -62,6 +59,9 @@ public class ProductPage extends BasePage{
     }
 
     public void setNumberOfPieces(String number){
+        LOGGER.debug("ustawiam ilość sztuk " + number);
+//        Logi mogą pojawiać się w różnych miejscach. Także w definicjach page objectów. Nie należy przesadzać z ilością
+//        logów, oraz warto dobrze zaplanować poziom logowania poszczególnych informacji
         numberOfPieces.clear();
         numberOfPieces.sendKeys(number);
     }

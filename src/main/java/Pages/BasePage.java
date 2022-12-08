@@ -7,11 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
 public class BasePage {
     WebDriver driver;
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     BasePage(WebDriver driver) {
         this.driver = driver;
