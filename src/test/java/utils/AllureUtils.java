@@ -17,7 +17,6 @@ public class AllureUtils {
             String resultsDir = getOutputLocation();
             File srcFile = new File(ALLURE_SETTINGS_LOCATION + ENV_SETTINGS);
             File destFile = new File(System.getProperty("user.dir") + "\\" + resultsDir +  "\\environment.properties");
-            System.out.println(destFile.getAbsolutePath());
             FileUtils.copyFile(srcFile, destFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
