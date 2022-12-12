@@ -1,5 +1,6 @@
 package Pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -66,6 +67,7 @@ public class ProductPage extends BasePage{
         numberOfPieces.sendKeys(number);
     }
 
+    @Step("Klikam przycisk dodawania do koszyka")
     public void clickAddToBasketButton(){
         stableButtonClick(addToBasketButtonElement);
     }

@@ -37,6 +37,7 @@ public class HomePage extends BasePage{
 
         return firstProduct.isDisplayed();
     }
+    @Step("Pobieram cenę pierwszego elementu")
     public String getPriceOfFirstElement(){
 //        String actualPrice = driver.findElement(firstProductPriceBy).getText();
         String actualPrice = firstProductPrice.getText();

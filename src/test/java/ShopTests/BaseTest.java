@@ -24,15 +24,10 @@ public class BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp(){
         LOGGER.info("startuje klase " + this.getClass());
-//        LOGGER.error("Przykładowy log na poziomie error");
-//        LOGGER.warn("Przykładowy log na poziomie warn");
-//
 //        System.out.println(System.getProperty("TestDriver"));
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
     }
@@ -44,22 +39,20 @@ public class BaseTest {
 
     @AfterMethod
     public void methodFinish(ITestResult result){
-//        wykorzystujemy listener przetrzymujący wszystkie dane odnoszące się do metody testowej, która była właśnie
-//        uruchomiona
         LOGGER.info("Kończę metodę " + result.getMethod().getMethodName());
         if(result.getStatus() == ITestResult.FAILURE){
-//            sprawdzamy status wykonania danej metody testowej i sprawdzamy czy failował. Jeśli tak wywołujemy zbieranie
-//            screenshota z nazwą zawierającą nazwę metody testowej oraz odpowiednio sformatowany timestamp
             DateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmm");
             String formatedEndTime = formatter.format(result.getEndMillis());
             ScreenshotUtil.takeScreenshot(driver, formatedEndTime + "_" + result.getMethod().getMethodName());
 //            ScreenshotUtil.takeScreenshotForReport(driver);
+//            Metoda, która zapisuje screenshot tylko do raportu Allure. Zmodyfikoana została też metoda w linii 46
+//            która pobiera screenshot do folderu target/screenshots
         }
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown(){
-        AllureUtils.reportEnv("chrome", "01", "stg");
+        AllureUtils.reportEnv("firefox", "11", "prod");
         LOGGER.info("Kończę testy w klasie " + this.getClass());
         driver.quit();
     }

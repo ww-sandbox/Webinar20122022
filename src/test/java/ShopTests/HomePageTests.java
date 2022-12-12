@@ -30,6 +30,8 @@ public class HomePageTests extends BaseTest {
         Assert.assertEquals("10", actualPrice);
     }
 
+    @Epic("Inny epic w projekcie")
+    @Severity(SeverityLevel.MINOR)
     @Test
     @Description("To moj opis")
     public void checkQuickViewWorks(){

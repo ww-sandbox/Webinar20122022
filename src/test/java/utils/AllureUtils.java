@@ -22,6 +22,11 @@ public class AllureUtils {
             throw new RuntimeException(e);
         }
     }
+//    Metoda zapisująca dane na temat przeglądarki do pliku i kopiująca ten plik do folderu z rezultatami wykoniania
+//    testów generowanymi przez Allure. Podobną metodę (przede wszystkim kopiującą) można wykorzystać do kopiowania
+//    pliku 'categories.json' zawierającego definicje przyporządkowania testów do kategorii na podstawie outputu
+//    tekstwoego z ich wykonania
+
     private static String getOutputLocation(){
         Properties prop = new Properties();
         try {

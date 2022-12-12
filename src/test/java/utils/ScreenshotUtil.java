@@ -27,8 +27,11 @@ public class ScreenshotUtil {
         }
         return new byte[0];
     }
+//    Zmodyfikoana metoda która pobiera screenshot do folderu target/screenshots
+
     @Attachment
     public static byte[] takeScreenshotForReport(WebDriver driver) {
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
+//    Metoda zapisująca screenshot wyłącznie do raportu Allure
 }
