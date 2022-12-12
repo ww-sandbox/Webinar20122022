@@ -1,11 +1,12 @@
 package ShopTests;
 
 import Pages.HomePage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class HomePageTests extends BaseTest {
-    @Test()
+    @Test
     public void checkHomePageTitle(){
         driver.get("http://sampleshop.inqa.pl/");
         String actualTitle = driver.getTitle();
@@ -13,6 +14,12 @@ public class HomePageTests extends BaseTest {
         Assert.assertEquals(actualTitle, "Automation Sample Shop");
     }
 
+    @TmsLink("XYZ-123")
+    @Issue("ZYX-321")
+    @Epic("Moj epic w projekcie")
+    @Story("A tutaj user story")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link(name="Google", url="https://www.google.com")
     @Test
     public void checkProductPrice(){
         HomePage homePage = new HomePage(driver);
@@ -24,6 +31,7 @@ public class HomePageTests extends BaseTest {
     }
 
     @Test
+    @Description("To moj opis")
     public void checkQuickViewWorks(){
         HomePage homePage = new HomePage(driver);
 

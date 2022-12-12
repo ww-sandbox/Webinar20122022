@@ -1,5 +1,6 @@
 package utils;
 
+import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -13,15 +14,21 @@ import java.io.IOException;
 public class ScreenshotUtil {
     final static Logger LOGGER = LoggerFactory.getLogger(ScreenshotUtil.class);
 
-    public static void takeScreenshot(WebDriver driver, String fileName){
+    @Attachment
+    public static byte[] takeScreenshot(WebDriver driver, String fileName){
 //        Statyczna metoda umożliwiająca zapis screenshota bez konieczności tworzenia instacji klasy
         LOGGER.info("Screenshot zapisany pod nazwą " + fileName + ".png");
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(scrFile, new File("./target/screenshots/" + fileName + ".png"));
+            FileUtils.copyFile(srcFile, new File("./target/screenshots/" + fileName + ".png"));
+            return FileUtils.readFileToByteArray(srcFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return new byte[0];
     }
-    
+    @Attachment
+    public static byte[] takeScreenshotForReport(WebDriver driver) {
+        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+    }
 }

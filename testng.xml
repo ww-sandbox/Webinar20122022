@@ -2,12 +2,12 @@
 
 <suite name="Suite1" verbose="1" >
     <test name="Regression1">
-        <groups>
-            <run>
-                <include name="SmokeTests">
-                </include>
-            </run>
-        </groups>
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="SmokeTests">-->
+<!--                </include>-->
+<!--            </run>-->
+<!--        </groups>-->
         <classes>
             <class name="ShopTests.HomePageTests"></class>
             <class name="ShopTests.ProductPageTests"></class>

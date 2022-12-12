@@ -8,10 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
+import utils.AllureUtils;
 import utils.ScreenshotUtil;
 
 import java.text.DateFormat;
@@ -55,11 +53,13 @@ public class BaseTest {
             DateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmm");
             String formatedEndTime = formatter.format(result.getEndMillis());
             ScreenshotUtil.takeScreenshot(driver, formatedEndTime + "_" + result.getMethod().getMethodName());
+//            ScreenshotUtil.takeScreenshotForReport(driver);
         }
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown(){
+        AllureUtils.reportEnv("chrome", "01", "stg");
         LOGGER.info("Kończę testy w klasie " + this.getClass());
         driver.quit();
     }

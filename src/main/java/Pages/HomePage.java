@@ -1,5 +1,6 @@
 package Pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,7 @@ public class HomePage extends BasePage{
     @FindBy(css = "article")
     WebElement firstProduct;
 
-    @FindBy(css = "article .price")
+    @FindBy(css = "article1 .price")
     WebElement firstProductPrice;
 
 
@@ -43,6 +44,7 @@ public class HomePage extends BasePage{
         return actualPrice;
     }
 
+    @Step
     public void clickQuickViewForProduct(int prodNum){
         WebElement productElement = driver.findElement(By.cssSelector(".product:nth-of-type(" + prodNum +")"));
         WebElement quickView = productElement.findElement(By.cssSelector(".quick-view"));
@@ -50,7 +52,7 @@ public class HomePage extends BasePage{
         action.moveToElement(productElement).pause(Duration.ofMillis(500))
                 .click(quickView).perform();
     }
-
+    @Step("JAkis opis stepu")
     public boolean isQuickViewBoxDisplayed(){
         waitForPresenceOfElement(quickViewBoxBy);
         waitForElementVisibility(driver.findElement(quickViewBoxBy));

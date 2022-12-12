@@ -13,8 +13,13 @@
         <maven.compiler.target>11</maven.compiler.target>
         <testng.version>7.6.1</testng.version>
         <selenium.version>4.6.0</selenium.version>
-        <browserInTest>firefox</browserInTest>
         <slf4j.version>2.0.5</slf4j.version>
+        <commonsio.version>2.11.0</commonsio.version>
+        <logback.version>1.4.5</logback.version>
+        <webdrivermanager.version>5.3.1</webdrivermanager.version>
+        <allure.version>2.20.1</allure.version>
+        <aspectj.version>1.9.9.1</aspectj.version>
+        <browserInTest>firefox</browserInTest>
     </properties>
 
     <dependencies>
@@ -35,7 +40,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>${commonsio.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
@@ -47,14 +52,19 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.5</version>
+            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.3.1</version>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
         </dependency>
 
 
@@ -72,8 +82,17 @@
                         <systemPropertyVariables>
                             <TestDriver>${browserInTest}</TestDriver>
                         </systemPropertyVariables>
-
+                        <argLine>
+                            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        </argLine>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjweaver</artifactId>
+                            <version>${aspectj.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
