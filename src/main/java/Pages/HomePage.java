@@ -19,7 +19,7 @@ public class HomePage extends BasePage{
     @FindBy(css = "article")
     WebElement firstProduct;
 
-    @FindBy(css = "article1 .price")
+    @FindBy(css = "article .price")
     WebElement firstProductPrice;
 
 

@@ -20,7 +20,7 @@ public class ScreenshotUtil {
         LOGGER.info("Screenshot zapisany pod nazwą " + fileName + ".png");
         File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(srcFile, new File("./target/screenshots/" + fileName + ".png"));
+            FileUtils.copyFile(srcFile, new File("./target/artifacts/screenshots/" + fileName + ".png"));
             return FileUtils.readFileToByteArray(srcFile);
         } catch (IOException e) {
             e.printStackTrace();

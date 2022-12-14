@@ -25,7 +25,7 @@ public class BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp(){
         LOGGER.info("startuje klase " + this.getClass());
-        driver = DriverProvider.getDriver(System.getProperty("TestDriver"), "https://www.google.com");
+        driver = DriverProvider.getDriver(System.getProperty("TestDriver"));
 //        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
 //        WebDriverManager.firefoxdriver().setup();
 //        driver = new FirefoxDriver();

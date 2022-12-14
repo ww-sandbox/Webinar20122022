@@ -21,7 +21,7 @@ public class ProductPageTests extends BaseTest{
         productPage.clickAddToBasketButton();
         ScreenshotUtil.takeScreenshot(driver, "allProp2");
 //        jak widać testy pisane z wykorzystaniem POP są zdecydowanie bardziej czytelne i łatwe w pisaniu
-        Assert.assertTrue(productPage.checkAddToBasketSummary("L", "2", "czarny"));
+        Assert.assertTrue(productPage.checkAddToBasketSummary("L", "3", "czarny"));
 //        asercja zawiera celowy błąd aby wygenerować fail i zbieranie screenshota
     }
 
