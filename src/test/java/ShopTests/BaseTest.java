@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utils.AllureUtils;
+import utils.DriverProvider;
 import utils.ScreenshotUtil;
 
 import java.text.DateFormat;
@@ -24,12 +25,12 @@ public class BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp(){
         LOGGER.info("startuje klase " + this.getClass());
-//        System.out.println(System.getProperty("TestDriver"));
-        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
-        WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        driver.manage().window().maximize();
+        driver = DriverProvider.getDriver(System.getProperty("TestDriver"), "https://www.google.com");
+//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
+//        WebDriverManager.firefoxdriver().setup();
+//        driver = new FirefoxDriver();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+//        driver.manage().window().maximize();
     }
 
     @BeforeMethod
@@ -54,6 +55,7 @@ public class BaseTest {
     public void tearDown(){
         AllureUtils.reportEnv("firefox", "11", "prod");
         LOGGER.info("Kończę testy w klasie " + this.getClass());
-        driver.quit();
+//        driver.quit();
+        DriverProvider.quitDriver();
     }
 }
